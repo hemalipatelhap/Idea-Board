@@ -11,9 +11,9 @@
 
 <%
 UserProfile profile=null;
-if(request.getSession().getAttribute("netId") != null){
-UserDao userDao = new UserDao();
-profile = userDao.getProfile(request.getSession().getAttribute("netId").toString());
+if(request.getAttribute("profile") != null){
+
+profile = (UserProfile) request.getAttribute("profile");
 }
 %>
 <form action="UpdateProfileController" method= "post">

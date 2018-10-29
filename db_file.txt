@@ -1,0 +1,88 @@
+create table users( 
+netid varchar(10) primary key, 
+fname varchar(20), 
+lname varchar(20),
+username varchar(20),
+password varchar(20)
+);
+
+create table skills( 
+id int primary key,
+name varchar(10)
+); 
+
+insert into skills values(1,'C');
+insert into skills values(2,'C++');
+insert into skills values(3,'JAVA');
+insert into skills values(4,'Python');
+insert into skills values(5,'MySQL');
+commit;
+
+create table areasofinterest( 
+id int primary key,
+name varchar(100)
+);
+
+insert into areasofinterest values(1, 'Artificial Intelligence');
+insert into areasofinterest values(2, 'Software Development');
+commit;
+
+create table user_skills(
+netid varchar(10),
+skill varchar(10)
+);
+
+create table user_aoi(
+netid varchar(10),
+aoi varchar(100)
+);
+
+create table user_exp(
+netid varchar(10),
+exp varchar(100)
+);
+
+create table idea_skills(
+netid varchar(10),
+title varchar(100),
+skill varchar(10)
+);
+
+create table idea_exp(
+netid varchar(10),
+title varchar(100),
+exp varchar(100)
+);
+
+create table request_status(
+netid varchar(10),
+
+status boolean,
+
+);
+
+create table ideas(
+ideaid int NOT NULL AUTO_INCREMENT,
+netid varchar(10),
+title varchar(100),
+description varchar(100),
+status boolean,
+     PRIMARY KEY (ideaid)
+);
+
+
+insert into ideas(netid, title, description, status)
+VALUES ('111', 'idea1', 'some description', 0);
+
+create table requests(
+request_id int NOT NULL auto_increment,
+ideaid int,
+netid varchar(10), 
+status varchar(10),
+PRIMARY KEY (request_id),
+FOREIGN KEY (ideaid) REFERENCES ideas(ideaid)
+);
+
+
+ 
+

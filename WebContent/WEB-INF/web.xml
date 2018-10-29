@@ -45,4 +45,22 @@
     <servlet-name>IdeaController</servlet-name>
     <url-pattern>/IdeaController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>RequestController</servlet-name>
+    <servlet-class>com.ideaboard.controller.RequestController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>RequestController</servlet-name>
+    <url-pattern>/RequestController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SearchIdeaController</servlet-name>
+    <servlet-class>com.ideaboard.controller.SearchIdeaController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SearchIdeaController</servlet-name>
+    <url-pattern>/SearchIdeaController</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -11,7 +11,7 @@ import com.ideaboard.model.AreaOfInterest;
 
 
 public class AreaOfInterestDao {
-	Connection con;
+	static Connection con;
 	public AreaOfInterestDao(){
 		con = ConnectionDB.getConnection();
 	}
@@ -28,7 +28,7 @@ try {
 				aoiList.add(aoi);
 			}
 			ps.close();
-			con.close();
+			
 		} catch(Exception e) {
 			
 		}
@@ -48,7 +48,7 @@ try {
 				
 			}
 			ps.close();
-			con.close();
+			
 		} catch(Exception e) {
 			
 		}

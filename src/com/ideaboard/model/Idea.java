@@ -1,5 +1,7 @@
 package com.ideaboard.model;
 
+import java.util.List;
+
 public class Idea {
 
 	private String netId;
@@ -8,7 +10,9 @@ public class Idea {
 	private String description;
 	private int status;
 	private IdeaDetails ideaDetails;
-	
+	public Idea() {
+		
+	}
 	public Idea(String netId) {
 		this.netId = netId;
 	}
@@ -39,8 +43,16 @@ public class Idea {
 	public IdeaDetails getIdeaDetails() {
 		return ideaDetails;
 	}
-	public void setIdeaDetails(IdeaDetails ideaDetails) {
-		this.ideaDetails = ideaDetails;
+	
+	public void setIdeaDetails(List<String> skills, int exp) {
+		ideaDetails = new IdeaDetails();
+		ideaDetails.setSkills(skills);
+		ideaDetails.setExperience(exp);
+	}
+	public void setIdeaDetails(List<String> skills, String exp) {
+		ideaDetails = new IdeaDetails();
+		ideaDetails.setSkills(skills);
+		ideaDetails.setExperience(exp);
 	}
 	public int getIdeaId() {
 		return ideaId;

@@ -11,7 +11,7 @@ import com.ideaboard.model.Skill;
 
 public class SkillDao {
 
-	Connection con;
+	static Connection con;
 	public SkillDao(){
 		con = ConnectionDB.getConnection();
 	}
@@ -28,7 +28,7 @@ try {
 				skills.add(skill);
 			}
 			ps.close();
-			con.close();
+			
 		} catch(Exception e) {
 			
 		}
@@ -48,7 +48,7 @@ try {
 				
 			}
 			ps.close();
-			con.close();
+			
 		} catch(Exception e) {
 			
 		}

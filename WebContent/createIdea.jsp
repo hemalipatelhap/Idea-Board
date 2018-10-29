@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="IdeaController" method = "post">
+<form action="IdeaController?method=<%="create" %>" method = "post">
 <table>
 <tr><td>Title</td><td><input type="text" name="title"/></td></tr>
 <tr><td>Description</td><td><textarea name="description" rows="10" cols="30"></textarea></td></tr>

@@ -13,7 +13,7 @@ import com.ideaboard.model.UserProfile;
 
 public class UserDao {
 
-	Connection con;
+	static Connection con;
 	public UserDao(){
 		con = ConnectionDB.getConnection();
 	}
@@ -33,7 +33,7 @@ public class UserDao {
 			ps.setString(2, "none");
 			ps.executeUpdate();
 			ps.close();
-			con.close();
+			
 		} catch(Exception e) {
 			
 		}
@@ -51,6 +51,7 @@ public class UserDao {
 				
 				username = rs.getString("username");
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,6 +92,26 @@ public class UserDao {
 		}
 		
 	}
+	public List<User> getSearchUser(String fname){
+		List<User> users = null;
+		try {
+			if((fname!=null && fname!="") ) {
+				PreparedStatement ps = con.prepareStatement("select * from idea_skills where fname like ?  ");
+				 ps.setString(1, "%"+fname+"%");
+				// ps.setString(2, skill2);
+				 ResultSet rs = ps.executeQuery();
+				 while(rs.next()) {
+					 User user = new User();
+					 user.setFirstName(rs.getString("fname"));
+					 user.setLastName(rs.getString("lname"));
+					 users.add(user);
+				}
+			}
+		}catch(Exception ex) {
+			
+		}
+		return users;
+	}
 	public UserProfile getProfile(String netId) {
 		UserProfile profile = new UserProfile(netId);
 		List<String> skills = new ArrayList<String>();
@@ -118,11 +139,11 @@ public class UserDao {
 			ps.setString(1, netId);
 			
 			 rs = ps.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				
 				exp = rs.getString("exp");
 			}
-			
+		
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

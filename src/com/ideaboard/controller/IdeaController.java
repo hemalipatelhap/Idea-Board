@@ -17,18 +17,102 @@ import com.ideaboard.model.IdeaDetails;
 
 public class IdeaController extends HttpServlet {
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		
 		String netId = request.getSession().getAttribute("netId").toString();
-		createIdea(netId, request);
+		String method = request.getParameter("method");
+		if(method.equals("displayAll")) {
+			getAllIdeas(netId, request);
+			RequestDispatcher rd = request.getRequestDispatcher("userIdeasPage.jsp");
+			rd.forward(request, response);
+		}else if(method.equals("view")) {
+			String title =request.getParameter("title"); 
+			getIdea(netId, title, request);
+			RequestDispatcher rd = request.getRequestDispatcher("viewIdea.jsp");
+			rd.forward(request, response);
+		}else if(method.equals("update")) {
+			String title =request.getParameter("title"); 
+			getIdea(netId, title, request);
+			RequestDispatcher rd = request.getRequestDispatcher("updateIdea.jsp");
+			rd.forward(request, response);
+		}else if(method.equals("delete")) {
+			String title =request.getParameter("title"); 
+			deleteIdea(netId, title, request);
+			getAllIdeas(netId, request);
+			RequestDispatcher rd = request.getRequestDispatcher("userIdeasPage.jsp");
+			rd.forward(request, response);
+		}
+		
+	}
+	private void deleteIdea(String netId, String title, HttpServletRequest request) {
+		IdeaDao ideaDao = new IdeaDao();
+		ideaDao.delete(netId, title);
+		
+	}
+	private void getIdea(String netId, String title, HttpServletRequest request) {
+		IdeaDao ideaDao = new IdeaDao();
+		Idea idea = ideaDao.getIdea(netId, title);
+		IdeaDetails details = idea.getIdeaDetails();
+		request.setAttribute("idea", idea);
+		request.setAttribute("details", details);
+		
+	}
+	private void getAllIdeas(String netId, HttpServletRequest request) {
+		IdeaDao ideaDao = new IdeaDao();
+		List<Idea> idea = ideaDao.getIdeas(netId);
+		request.setAttribute("ideas", idea);
+		
+		
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		String netId = request.getSession().getAttribute("netId").toString();
+		String method = request.getParameter("method");
+		if(method.equals("create")) {
+			createIdea(netId, request);
+		} else if(method.equals("update")) {
+			String oldTitle = request.getParameter("oldTitle");
+			updateIdea(netId, oldTitle, request);
+		}
+		
+		getAllIdeas(netId, request);
 		RequestDispatcher rd = request.getRequestDispatcher("userIdeasPage.jsp");
 		rd.forward(request, response);
 
 	}
 
+	private void updateIdea(String netId, String oldTitle, HttpServletRequest request) {
+		IdeaDao ideaDao = new IdeaDao();
+		Idea idea = new Idea(netId);
+		
+		
+		String title = request.getParameter("title");
+		String description = request.getParameter("description");
+		System.out.println(description);
+		int status = Integer.parseInt(request.getParameter("status"));
+		idea.setTitle(title);
+		idea.setDescription(description);
+		idea.setStatus(status);
+		int exp = 0;
+		List<String> skills = new ArrayList<String>();
+		if(request.getParameter("exp") != null) {
+			
+			exp = Integer.parseInt(request.getParameter("exp"));
+			}
+			if(request.getParameterValues("skill")!=null){
+			
+				 skills = new ArrayList<String>(Arrays.asList(request.getParameterValues("skill")));
+			}
+			idea.setIdeaDetails(skills, exp);
+			ideaDao.update(idea, oldTitle);
+			
+		
+	}
 	private void createIdea(String netId, HttpServletRequest request) {
 		IdeaDao ideaDao = new IdeaDao();
 		Idea idea = new Idea(netId);
-		IdeaDetails detials = new IdeaDetails();
+		
 		
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
@@ -36,17 +120,22 @@ public class IdeaController extends HttpServlet {
 		idea.setTitle(title);
 		idea.setDescription(description);
 		idea.setStatus(status);
+		int exp = 0;
+		List<String> skills = new ArrayList<String>();
 		if(request.getParameter("exp") != null) {
-			int exp = Integer.parseInt(request.getParameter("exp"));
-			detials.setExperience(exp);
+			
+			exp = Integer.parseInt(request.getParameter("exp"));
 			}
 			if(request.getParameterValues("skill")!=null){
-			List<String> skills = new ArrayList<String>(Arrays.asList(request.getParameterValues("skill")));
-			detials.setSkills(skills);
+			
+				skills = new ArrayList<String>(Arrays.asList(request.getParameterValues("skill")));
 			}
-			idea.setIdeaDetails(detials);
+			
+			idea.setIdeaDetails(skills, exp);
 			ideaDao.create(idea);
 			
 		
 	}
 }
+
+

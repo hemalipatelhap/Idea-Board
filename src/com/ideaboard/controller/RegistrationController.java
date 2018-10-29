@@ -1,20 +1,23 @@
 package com.ideaboard.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ideaboard.dao.IdeaDao;
 import com.ideaboard.dao.UserDao;
+import com.ideaboard.model.Idea;
 import com.ideaboard.model.User;
 
 
 
 public class RegistrationController extends HttpServlet {
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		

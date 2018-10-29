@@ -4,9 +4,9 @@ import java.util.List;
 
 public class IdeaDetails {
 
-    String netId;
+   /* String netId;
 	
-	String title;
+	String title;*/
 	
 	
 	List<String> skills;
@@ -19,6 +19,13 @@ public class IdeaDetails {
 	}
 	public String getExperience() {
 		return experience;
+	}
+	public int getExperienceVal() {
+		if(getExperience().equals("less than 1 year")) return 1;
+		else if(getExperience().equals("1-2 years")) return 2;
+		else if(getExperience().equals("3-5 years")) return 3;
+		else if(getExperience().equals("more than 5 years")) return 4;
+		return 0;
 	}
 	public void setExperience(int value) {
 		 switch (value) { 
@@ -42,7 +49,7 @@ public class IdeaDetails {
 	public void setExperience(String exp) {
 		this.experience = exp;
 	}
-	public String getTitle() {
+	/*public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
@@ -53,6 +60,6 @@ public class IdeaDetails {
 	}
 	public void setNetId(String netId) {
 		this.netId = netId;
-	}
+	}*/
 	
 }
