@@ -60,5 +60,13 @@ public class Idea {
 	public void setIdeaId(int ideaId) {
 		this.ideaId = ideaId;
 	}
-	
+    public ProjectDetails startProject(List<String> members) {
+    	this.setStatus(1);
+    	ProjectDetails projectDetails = new ProjectDetails();
+    	projectDetails.setProjectId(this.getIdeaId());
+    	projectDetails.setMembers(members);
+    	return projectDetails;
+    	
+    	
+    }
 }

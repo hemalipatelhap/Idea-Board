@@ -86,8 +86,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	private void createRequest(Idea idea, HttpServletRequest request) {
 	// TODO Auto-generated method stub
 		Request ideaRequest = new Request();
+		System.out.println("idea id"+ idea.getIdeaId());
 		ideaRequest.setIdeaId(idea.getIdeaId());
-		ideaRequest.setNetId(idea.getNetId());
+		ideaRequest.setNetId(request.getSession().getAttribute("netId").toString());
 		ideaRequest.setStatus("applied");
 		RequestDao requestDao= new RequestDao();
 		requestDao.createRequests(ideaRequest);

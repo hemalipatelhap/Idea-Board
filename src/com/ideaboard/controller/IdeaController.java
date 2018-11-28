@@ -56,6 +56,7 @@ public class IdeaController extends HttpServlet {
 		IdeaDetails details = idea.getIdeaDetails();
 		request.setAttribute("idea", idea);
 		request.setAttribute("details", details);
+		request.setAttribute("from", "view");
 		
 	}
 	private void getAllIdeas(String netId, HttpServletRequest request) {

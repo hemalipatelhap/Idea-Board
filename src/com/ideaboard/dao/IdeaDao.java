@@ -199,29 +199,40 @@ public List<Idea> getSearchIdea(String ideatitle,String aoi1,String aoi2,String 
 		
 		List<Idea> ideas = new ArrayList<Idea>();
 		PreparedStatement ps;
+		System.out.println("title"+ ideatitle);
+		System.out.println("skill1" +skill1 );
+		System.out.println("skill2" +skill2 );
 		try {
+			System.out.println("inside try");
+			
 			Set<String> ideaSet = new HashSet<String>();
-			if((skill1!=null && skill1!="") &&(skill2!=null && skill2!="") ) {
+			
+			if((!skill1.equals("-1") ) &&(!skill2.equals("-1") ) ) {
 				 ps = con.prepareStatement("select title from idea_skills where skill =(? OR ?) ");
 				 ps.setString(1, skill1);
 				 ps.setString(2, skill2);
 				 ResultSet rs = ps.executeQuery();
+				 System.out.println("result set 1"+ rs.getFetchSize());
 				 while(rs.next()) {
 						ideaSet.add(rs.getString("title"));
 				}
-			}else if((skill1!=null && skill1!="") &&(skill2=="-1")) {
+				 
+			}else if((!skill1.equals("-1")) &&(skill2.equals("-1") )) {
 				ps = con.prepareStatement("select title from idea_skills where skill = ? ");
 				 ps.setString(1, skill1);
 				ResultSet rs = ps.executeQuery();
+				System.out.println("result set 2"+ rs.getFetchSize());
 				 while(rs.next()) {
 						ideaSet.add(rs.getString("title"));
 				}
 			}
+			System.out.println("set size"+ ideaSet.size());
 			if(ideaSet.isEmpty()) {
 				if(ideatitle!=null) {
 					 ps = con.prepareStatement("select * from ideas where title like ? ");
 						ps.setString(1, "%"+ideatitle+"%");
 						ResultSet rs = ps.executeQuery();
+						System.out.println("result set 3"+ rs.getFetchSize());
 						while(rs.next()) {
 							Idea idea = new Idea();
 							idea.setTitle(rs.getString("title"));
@@ -229,6 +240,7 @@ public List<Idea> getSearchIdea(String ideatitle,String aoi1,String aoi2,String 
 							//idea.setStatus(rs.getInt("status"));
 							ideas.add(idea);
 						}
+						
 				}
 			}else {
 				for(String id : ideaSet) {
@@ -236,6 +248,7 @@ public List<Idea> getSearchIdea(String ideatitle,String aoi1,String aoi2,String 
 						 ps = con.prepareStatement("select * from ideas where title =? ");
 							ps.setString(1, id);
 							ResultSet rs = ps.executeQuery();
+							System.out.println("result set 4"+ rs.getFetchSize());
 							while(rs.next()) {
 								Idea idea = new Idea();
 								idea.setTitle(rs.getString("title"));
@@ -277,5 +290,22 @@ public List<Idea> getSearchIdea(String ideatitle,String aoi1,String aoi2,String 
 			
 		}
 		
+	}
+	public Idea getIdeaById(int ideaId) {
+		Idea idea = null;
+		try {
+			PreparedStatement ps = con.prepareStatement("select title from ideas where ideaid=?");
+			ps.setInt(1,ideaId);
+			
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				String title = rs.getString("title");
+				idea = getIdeaByTitle(title);
+			}
+			
+		}catch(Exception e) {
+			
+		}
+		return idea;
 	}
 }

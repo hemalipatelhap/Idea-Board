@@ -23,6 +23,7 @@
 <li><a href="userIdeasPage.jsp">My ideas</a></li>
 <li><a href="RequestController?method=myRequests">My applications</a></li>
 <li><a href="SearchIdeas.jsp">search ideas</a></li>
+<li><a href="ProjectController?method=myProjects">my projects</a>
 </ul>
 </body>
 </html>

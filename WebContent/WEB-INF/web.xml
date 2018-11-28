@@ -63,4 +63,21 @@
     <servlet-name>SearchIdeaController</servlet-name>
     <url-pattern>/SearchIdeaController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ProjectController</servlet-name>
+    <servlet-class>com.ideaboard.controller.ProjectController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProjectController</servlet-name>
+    <url-pattern>/ProjectController</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>TaskController</servlet-name>
+    <servlet-class>com.ideaboard.controller.TaskController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TaskController</servlet-name>
+    <url-pattern>/TaskController</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

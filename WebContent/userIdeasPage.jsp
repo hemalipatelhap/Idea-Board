@@ -34,6 +34,9 @@ for(Idea idea : ideas){%>
 	<td>
 	<a href="RequestController?method=viewApplications&ideaId=<%=idea.getIdeaId()%>">View Requests</a><% out.print(idea.getIdeaId()); %>
 	</td>
+	<td>
+	<a href="ProjectController?method=create&ideaId=<%=idea.getIdeaId()%>" >Start Project</a>
+	</td>
 	</tr>
 <%}
 }%>

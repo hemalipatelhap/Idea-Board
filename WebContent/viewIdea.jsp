@@ -7,6 +7,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<script language="javascript"> 
+<% String from = "view";
+from=request.getAttribute("from").toString();%>
+window.onload = function(){ 
+   var from ="<%=from%>"; 
+   
+   if(from == "search"){
+       document.getElementById("edit").style.display = "none";
+   }
+  
+} 
+
+</script>
 <body>
 <%
 Idea idea = null;
@@ -28,25 +41,35 @@ description : <% out.print(idea.getDescription()); %>
 </tr>
 <tr>
 <td>
-Skills : <% for(String skill : details.getSkills()){
-	out.print(skill);
-}
-	%>
+Skills :
+ <% 
+if(details != null && details.getSkills() != null){
+for(String skill : details.getSkills()){%>
+	<% out.print(skill);%>
+<% }
+}%>
 
 </td>
 </tr>
 <tr>
 <td>
-Experience : <% out.print(details.getExperience());
-	%>
+Experience : <% 
+if(details != null && details.getExperience()!= null){%>
+<%out.print(details.getExperience()); %>
+	<% }%>
 
 </td>
 </tr>
 <tr>
 <td>
+<div id="edit">
 <a href="IdeaController?method=<%="update"%>&title=<%=idea.getTitle()%>"/>edit
+</div>
+
+
 </td>
 </tr>
 </table>
 </body>
+
 </html>
